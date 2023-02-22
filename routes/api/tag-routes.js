@@ -1,4 +1,5 @@
 const router = require('express').Router();
+const { request } = require('express');
 const { Tag, Product, ProductTag } = require('../../models');
 
 // The `/api/tags` endpoint
@@ -26,7 +27,6 @@ router.get('/', async (req, res) => {
 
 //---- GET for a single tag ----//
 router.get('/:id', async (req, res) => {
-  
   try {
     const singleTag = await Tag.findByPk(req.params.id);
 
@@ -46,7 +46,6 @@ router.get('/:id', async (req, res) => {
 
 //---- POST request for new tag by tag_name ----//
 router.post('/', async (req, res) => {
-  
   try {
     const newTag = await Tag.create({tag_name: req.body.tag_name});
 
@@ -64,14 +63,13 @@ router.post('/', async (req, res) => {
 
 //---- PUT request for a tag by :id ----//
 router.put('/:id', async (req, res) => {
-   
   try {
     const updatedTag = await Tag.update(
       {tag_name: req.params.tag_name},
       {returning: true, where: {id: req.params.id}}
     )
     
-    console.log(`Updated tag name to: ${req.body.tag_name}`)
+    console.log(`Updated tag name to: ${req.body.tag_name}`);
 
     res.status(200).json(updatedTag);
 
@@ -84,8 +82,26 @@ router.put('/:id', async (req, res) => {
 
 
 //---- DELETE request for a tag by :id ----//
-router.delete('/:id', (req, res) => {
-  // delete on tag by its `id` value
+router.delete('/:id', async (req, res) => {
+  try {
+    const deletedTag = await Tag.destroy({
+      where: {id: req.params.id}
+    });
+
+    if(!deletedTag) {
+      res.status(404).json({message: 'Tag not found under this id!'});
+      return;
+
+    } else {
+      console.log(`\n The tag stored under id number: ${req.params.id} has been deleted! \n`);
+    }
+
+    res.status(200).json(deletedTag);
+
+  } catch (err) {
+    res.status(500).json(err);
+  }
 });
+
 
 module.exports = router;

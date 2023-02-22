@@ -66,7 +66,7 @@ router.post('/', async (req, res) => {
 //---- PUT request for a category by :id ----//
 router.put('/:id', async (req, res) => {
   try {
-    const updatedData = await Category.update(
+    const updatedCategory = await Category.update(
       {category_name: req.body.category},
       {returning: true, where: {id: req.body.id}}
 
@@ -74,7 +74,7 @@ router.put('/:id', async (req, res) => {
 
     console.log(`Updated category name to: ${req.body.category_name}`)
 
-    res.status(200).json(updatedData);
+    res.status(200).json(updatedCategory);
 
   } catch (err) {
     res.status(400).json(err);
@@ -87,19 +87,19 @@ router.put('/:id', async (req, res) => {
 //---- DELETE request to delete a category by :id ----//
 router.delete('/:id', async (req, res) => {
   try {
-    const deletedData = await Category.destroy({
+    const deletedCategory = await Category.destroy({
       where: {id: req.params.id}
     });
 
-    if(!deletedData) {
+    if(!deletedCategory) {
       res.status(404).json({message: 'No category found under this id'});
       return;
 
     } else {
-      console.log(`\n Deleted the category stored under id number: ${req.params.id}`);
+      console.log(`\n Deleted category stored under id number: ${req.params.id}`);
   }
 
-  res.status(200).json(deletedData);
+  res.status(200).json(deletedCategory);
 
   } catch(err) {
     res.status(500).json(err);
