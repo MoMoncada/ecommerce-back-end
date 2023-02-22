@@ -6,6 +6,8 @@ const { Category, Product } = require('../../models');
 router.get('/', async (req, res) => {
   
   try {
+    console.log(`\n Getting all Category data! \n`)
+
     const dbCategoriesData = await Category.findAll({
       //-- Joining Categories with Products --//
       include: [{model: Product}]
