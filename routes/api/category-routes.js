@@ -27,15 +27,15 @@ router.get('/', async (req, res) => {
 router.get('/:id', async (req, res) => {
   
   try {
-    const singleCategoryData = await Category.findByPk(req.params.id, {
+    const singleCategory = await Category.findByPk(req.params.id, {
       //-- Joining Categories with Products --//
       include: [{model: Product}]
     });
 
-    if (!singleCategoryData) {
+    if (!singleCategory) {
       res.status(404).json({message: 'No category found under the entered id'});
     } else {
-      res.status(200).json(singleCategoryData);
+      res.status(200).json(singleCategory);
     }
 
   } catch {
@@ -46,7 +46,7 @@ router.get('/:id', async (req, res) => {
 
 
 
-//---- POST request for new category ----//
+//---- POST request for new category by category_name----//
 router.post('/', async (req, res) => {
   try {
     const newCategory = await Category.create({category_name: req.body.category_name});
