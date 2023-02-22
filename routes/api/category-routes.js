@@ -19,6 +19,8 @@ router.get('/', async (req, res) => {
 
 });
 
+
+
 //---- GET for a single category ----//
 router.get('/:id', async (req, res) => {
   
@@ -80,9 +82,27 @@ router.put('/:id', async (req, res) => {
 
 
 
+//---- DELETE request to delete a category by :id ----//
+router.delete('/:id', async (req, res) => {
+  try {
+    const deletedData = await Category.destroy({
+      where: {id: req.params.id}
+    });
 
-router.delete('/:id', (req, res) => {
-  // delete a category by its `id` value
+    if(!deletedData) {
+      res.status(404).json({message: 'No category found under this id'});
+      return;
+
+    } else {
+      console.log(`\n Deleted the category stored under id number: ${req.params.id}`);
+  }
+
+  res.status(200).json(deletedData);
+
+  } catch(err) {
+    res.status(500).json(err);
+  }
+  
 });
 
 module.exports = router;
