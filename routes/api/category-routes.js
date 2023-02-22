@@ -1,13 +1,13 @@
 const router = require('express').Router();
 const { Category, Product } = require('../../models');
 
-// The `/api/categories` endpoint
 
+//---- GET for all categories ----//
 router.get('/', async (req, res) => {
-  // find all categories
-  // be sure to include its associated Products
+  
   try {
     const dbCategoriesData = await Category.findAll({
+      //-- Joining Categories with Products --//
       include: [{model: Product}]
     });
 
@@ -19,11 +19,12 @@ router.get('/', async (req, res) => {
 
 });
 
+//---- GET for a single category ----//
 router.get('/:id', async (req, res) => {
-  // find one category by its `id` value
-  // be sure to include its associated Products
+  
   try {
     const singleCategoryData = await Category.findByPk(req.params.id, {
+      //-- Joining Categories with Products --//
       include: [{model: Product}]
     });
 
