@@ -30,7 +30,7 @@ Populate the database with these commands:
 
 ## Application Documentation
 
-[Click here to watch this application in action!](chrome-extension://mmeijimgabbpbgpdklnllpncmdofkcpn/app.html#/files/0da01257-a328-442e-y85c-e4b90d62837c)
+[Click here to watch this application in action!](https://drive.google.com/file/d/1_08vEROYmcHyTvHKcFUKHg3XbYfl3KtD/view)
 
 
 Github Repo: https://github.com/MoMoncada/ecommerce-back-end
