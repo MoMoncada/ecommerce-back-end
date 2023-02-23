@@ -27,6 +27,8 @@ router.get('/', async (req, res) => {
 router.get('/:id', async (req, res) => {
   
   try {
+    console.log(`\n Getting category data for id: ${req.params.id} \n`);
+
     const singleCategory = await Category.findByPk(req.params.id, {
       //-- Joining Categories with Products --//
       include: [{model: Product}]
@@ -51,7 +53,7 @@ router.post('/', async (req, res) => {
   try {
     const newCategory = await Category.create({category_name: req.body.category_name});
 
-    console.log(`\n Creating new category: ${req.body.category_name}`);
+    console.log(`\n Creating new category: ${req.body.category_name}\n`);
 
     res.status(200).json(newCategory);
 
@@ -72,7 +74,7 @@ router.put('/:id', async (req, res) => {
 
     );
 
-    console.log(`Updated category name to: ${req.body.category_name}`)
+    console.log(`\n Updated category name to: ${req.body.category_name} \n`)
 
     res.status(200).json(updatedCategory);
 
@@ -96,7 +98,7 @@ router.delete('/:id', async (req, res) => {
       return;
 
     } else {
-      console.log(`\n Deleted category stored under id number: ${req.params.id}`);
+      console.log(`\n Deleted category stored under id number: ${req.params.id} \n`);
   }
 
   res.status(200).json(deletedCategory);

@@ -28,6 +28,8 @@ router.get('/', async (req, res) => {
 //---- GET for a single tag ----//
 router.get('/:id', async (req, res) => {
   try {
+    console.log(`\n Getting tag data for id: ${req.params.id} \n`);
+
     const singleTag = await Tag.findByPk(req.params.id);
 
     if (!singleTag){
