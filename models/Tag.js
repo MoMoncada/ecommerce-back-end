@@ -15,7 +15,8 @@ Tag.init(
     },
     //-- second column: tag_name --//
     tag_name: {
-      type: DataTypes.STRING
+      type: DataTypes.STRING,
+      allowNull: false
     }
   },
   {
